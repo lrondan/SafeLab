@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataLab - Iniciar Sesión</title>
+    <link rel="stylesheet" href="{% static 'login/styles.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="logo.png" alt="DataLab Logo" class="logo">
+            <h1>Bienvenido a <span>DataLab</span></h1>
+            <p>Tu laboratorio de análisis de datos en la nube.</p>
+        </div>
+        <form class="login-form">
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required>
+                {{ views.user_name }}
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                {{ views.password }}
+            </div>
+            <button type="submit" class="login-button">Iniciar Sesión</button>
+            <div class="login-links">
+                <a href="{% url 'register' %}">Regístrate</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

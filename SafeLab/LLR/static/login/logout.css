@@ -1,0 +1,135 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor del login */
+.login-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+/* Logo */
+.logo {
+    width: 80px;
+    margin-bottom: 1rem;
+}
+
+/* Título */
+.login-header h1 {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+}
+
+.login-header h1 span {
+    color: #00d2ff;
+}
+
+.login-header p {
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+/* Formulario */
+.login-form {
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-group input::placeholder {
+    color: #ccc;
+}
+
+/* Botón de inicio de sesión */
+.login-button {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    background: #00d2ff;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-button:hover {
+    background: #00a8cc;
+}
+
+/* Enlaces adicionales */
+.login-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.login-links a {
+    color: #00d2ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-links a:hover {
+    color: #00a8cc;
+}
+
+/* Estilos específicos para el formulario de cierre de sesión */
+.logout-container .login-header h1 {
+    font-size: 1.8rem;
+}
+
+.logout-container .login-header p {
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+.logout-container .login-form {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.logout-container .login-button {
+    background: #ff4b5c;  /* Color rojo para el botón de cerrar sesión */
+    margin-top: 1rem;
+}
+
+.logout-container .login-button:hover {
+    background: #e43a4a;  /* Color rojo oscuro al hacer hover */
+}

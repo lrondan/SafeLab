@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataLab - Cerrar Sesión</title>
+    <link rel="stylesheet" href="{% static 'login/logout.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="{% static 'mi_app/logo.png' %}" alt="DataLab Logo" class="logo">
+            <h1>¿Seguro que quieres salir de <span>DataLab</span>?</h1>
+            <p>Esperamos verte de nuevo pronto.</p>
+        </div>
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            <button type="submit" class="login-button">Cerrar Sesión</button>
+            <div class="login-links">
+                <a href="{{ redirect_to_login }}">Volver al inicio de sesión</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
