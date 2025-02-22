@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect
 from . form import RegisterForm
 from django.contrib import messages
+from .models import Register_User
 
 
 # Create your views here.
 def login(request):
-    
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = Register_User.objects.filter(email=email, password=password)
+        if user:
+            return redirect('cpanel')
+        else:
+            messages.error(request, 'email or password is incorrect')
     return render(request, 'login.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -15,8 +25,6 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-
-
     else:
         form = RegisterForm()
 
