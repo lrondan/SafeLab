@@ -8,6 +8,14 @@ class RegisterForm(forms.ModelForm):
             'username',
             'email',
             'password',
-            'confirm_password',
-            'date',
             ]
+        
+    def clean_email(self):
+        email_passed = self.cleaned_data.get('email')
+        email_passed = email_passed.lower()
+        email_already_registered = Register_User.objects.filter(email=email_passed).exists()
+        if email_already_registered:
+            raise forms.ValidationError('Email already registered')  
+        elif  email_already_registered:
+            Register_User.objects.filter(email=email_passed).delete()
+        return email_passed  

@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeLab - Dashboard</title>
+    <link rel="stylesheet" href="{% static 'login/cpanel.css' %}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Barra lateral -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="{% static 'login/logovcc.png' %}" alt="DataLab Logo" class="logo">
+                <h2>SafeLab</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="{% url 'devices' %}">Devices</a></li>
+                    <li><a href="{% url 'chem' %}">ChemSubs</a></li>
+                    <li><a href="{% url 'glaswerk' %}">Glassware</a></li>
+                    <li><a href="{% url 'safety' %}">Safety</a></li>
+                    <li><a href="{% url 'other' %}">Others</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Welcome, <span>Usuario</span></h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, laboriosam asperiores! Repellat consequatur, hic illum nam eaque neque sequi corrupti repellendus, quos veniam alias quibusdam eligendi! Culpa facere reprehenderit iure.</p>
+            </div>
+
+            <!-- Contenedor de tarjetas con scroll horizontal -->
+            <div class="services-container">
+                <!-- Tarjeta 1: projects -->
+                <div class="service-card">
+                    <div class="icon">
+                        <img src="{% static 'mi_app/upload-icon.png' %}" alt="icon1">
+                    </div>
+                    <h3>Projects</h3>
+                    <p>View the next project</p>
+                    <a href="#" class="service-button">Start</a>
+                </div>
+
+                <!-- Tarjeta 2: HTU -->
+                <div class="service-card">
+                    <div class="icon">
+                        <img src="{% static 'mi_app/stats-icon.png' %}" alt="HTU">
+                    </div>
+                    <h3>How to use</h3>
+                    <p>Lear how to use all instruments in the lab</p>
+                    <a href="#" class="service-button">Start</a>
+                </div>
+
+                <!-- Tarjeta 3: Machine Learning -->
+                <div class="service-card">
+                    <div class="icon">
+                        <img src="{% static 'mi_app/ml-icon.png' %}" alt="Machine Learning">
+                    </div>
+                    <h3>Manuals</h3>
+                    <p>calibration manuals</p>
+                    <a href="#" class="service-button">Start</a>
+                </div>
+
+                <!-- Tarjeta 4: Visualización -->
+                <div class="service-card">
+                    <div class="icon">
+                        <img src="{% static 'mi_app/viz-icon.png' %}" alt="Visualización">
+                    </div>
+                    <h3>About us</h3>
+                    <p>Find more information about us.</p>
+                    <a href="#" class="service-button">Comenzar</a>
+                </div>
+
+            </div>
+            <div class="legend">
+                <h1>SafeLab - Dashboard</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae, atque autem veniam aperiam quibusdam enim aliquam reiciendis dignissimos harum adipisci consequatur aliquid sit eum nemo error iste quaerat veritatis laboriosam?</p>
+            </div>
+            <div class="sidebar-footer">
+                <footer></footer>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

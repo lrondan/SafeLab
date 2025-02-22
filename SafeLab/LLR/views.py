@@ -1,22 +1,22 @@
 from django.shortcuts import render, redirect
 from . form import RegisterForm
-from . models import Register_User
+from django.contrib import messages
+
 
 # Create your views here.
 def login(request):
+    
     return render(request, 'login.html')
 
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        messages.success(request, 'Account created successfully')
         if form.is_valid():
-            form = form.save(commit=False)
-            form.name = request.user
-            form.password = request.password
-            form.confirm_password = request.confirm_password
-            form.email = request.email
             form.save()
-            return redirect('login', pk = form.pk)
+            return redirect('login')
+
+
     else:
         form = RegisterForm()
 

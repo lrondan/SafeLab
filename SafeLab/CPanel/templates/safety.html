@@ -1,0 +1,44 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devices</title>
+    <link rel="stylesheet" href="{% static 'login/safelab.css' %}">
+</head>
+<body>
+
+    <h1><a href="{%url 'cpanel'%}">SafeLab.</a> Safety</h1>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Items</th>
+                    <th>Mark</th>
+                    <th>Range</th>
+                    <th>Containers</th>
+                    <th>Observation</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in datas %}
+                <tr>
+                    <td>{{data.id}}</td>
+                    <td>{{data.item}}</td>
+                    <td>{{data.mark}}</td>
+                    <td>{{data.range}}</td>
+                    <td>{{data.container}}</td>
+                    <td><span class="status available">{{data.Observation}}</span></td>
+                    <td>{{data.date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

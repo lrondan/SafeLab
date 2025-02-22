@@ -17,10 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from LLR.views import login, register, logout
+from CPanel.views import safelab_aparatu, other, cpanel, upload_csv, chem, glasses, safetys
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login, name='login'),
     path('register/', register, name='register'),
     path('logout/', logout, name='logout'),
+    path('cpanel/', cpanel, name='cpanel'),
+    path('devices/', safelab_aparatu, name='devices'),
+    path('chem/', chem, name='chem'),
+    path('glaswerk/', glasses, name='glaswerk'),
+    path('safety/', safetys, name='safety'),
+    path('other/', other, name='other'),
+    path('upload/', upload_csv, name='upload_csv'),
 ]
