@@ -3,7 +3,7 @@ import datetime
 
 # Create your models here.
 class Aparatu(models.Model):
-    name = models.CharField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=50, blank=False, null=True)
     mark = models.CharField(max_length=50)
     range = models.CharField(max_length=50)
     cant = models.IntegerField()
@@ -15,9 +15,9 @@ class Aparatu(models.Model):
     
 
 class ChemSub(models.Model):
-    name = models.CharField(max_length=50, blank=False, null=False)
-    vol = models.IntegerField()
-    container = models.IntegerField()
+    name = models.CharField(max_length=50, blank=False, null=True)
+    vol = models.CharField()
+    container = models.CharField()
     location = models.CharField(max_length=50)
     Observation = models.TextField()
     date = models.DateField(default=datetime.date.today)
@@ -26,9 +26,9 @@ class ChemSub(models.Model):
         return f"{self.name}, {self.vol}, {self.Observation}"
     
 class glaswerk(models.Model):
-    name = models.CharField(max_length=50, blank=False, null=False)
-    vol = models.IntegerField()
-    container = models.IntegerField()
+    name = models.CharField(max_length=150, blank=False, null=False)
+    vol = models.CharField(max_length=50)
+    container = models.CharField(max_length=50)
     Observation = models.TextField()
     date = models.DateField(default=datetime.date.today)
 
@@ -37,8 +37,8 @@ class glaswerk(models.Model):
     
 class Other(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
-    vol = models.IntegerField()
-    container = models.IntegerField()
+    mark = models.CharField(max_length=50)
+    container = models.CharField(max_length=50)
     Observation = models.TextField()
     date = models.DateField(default=datetime.date.today)
 

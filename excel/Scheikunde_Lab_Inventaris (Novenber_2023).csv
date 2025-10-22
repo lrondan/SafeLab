@@ -1,23 +1,22 @@
-﻿;;;;
-Type apparaat;Merk;Range;Aantal;Opmerkingen
-2 Prong swivelklem;;;10;
-Analytisch balans;Leadzm;120 V;1;
-Blender;Westinghouse;110V, 400 W;1;
-Brix Refractometer;Atago;N10, 10 %;1;
-Brix Refractometer;aichose;;1;
-Bunsen burner;;;1;
-Electrische roerder;;;5;
-Electronic Kitchen Scale;;5 Kg;1;
-Handle vacuum pomp;;;2;"Een is defect; Het heeft een lekkage"
-Lab Destilled Water Machine;Assisent;220V, 2.5 Kw;1;
-Lab Destilled Water Storage Tank;ConiPlax;5 Liter;1;
-Lab lift;;;6;
-Labstaander;;;12;
-Labstaander klem;;;39;
-Labstaander klem met burrethouder;;;5;
-Liquid pour spout;Tablecraft;;11;
-Micropipet;GILSON;;5;"De pipetten geven niet de juiste volume; ze moeten gecalibreerd worden"
-pH meter;Apera ph700;"Dc; 9V";1;
-Portable scale;;10 Kg;1;
-Verwarmingsmantel;;200 WATT;6;
-Waterkoker;Dash;120V, 1200 W;1;
+id;name;mark;range;cant;Observation;date
+1;2 Prong swivelklem;null;null;10;null;12/04/2025
+2;Analytisch balans;Leadzm;120 V;1;null;12/04/2025
+3;Blender;Westinghouse;110V, 400 W;1;null;12/04/2025
+4;Brix Refractometer;Atago;N10, 10 %;1;null;12/04/2025
+5;Brix Refractometer;aichose;null;1;null;12/04/2025
+6;Bunsen burner;null;null;1;null;12/04/2025
+7;Electrische roerder;null;null;5;null;12/04/2025
+8;Electronic Kitchen Scale;null;5 Kg;1;null;12/04/2025
+9;Handle vacuum pomp;null;null;2;"Een is defect; Het heeft een lekkage";12/04/2025
+10;Lab Destilled Water Machine;Assisent;220V, 2.5 Kw;1;null;12/04/2025
+11;Lab Destilled Water Storage Tank;ConiPlax;5 Liter;1;null;12/04/2025
+12;Lab lift;null;null;6;null;12/04/2025
+13;Labstaander;null;null;12;null;12/04/2025
+14;Labstaander klem;null;null;39;null;12/04/2025
+15;Labstaander klem met burrethouder;null;null;5;null;12/04/2025
+16;Liquid pour spout;Tablecraft;null;11;null;12/04/2025
+17;Micropipet;GILSON;null;5;"De pipetten geven niet de juiste volume; ze moeten gecalibreerd worden";12/04/2025
+18;pH meter;Apera ph700;"Dc; 9V";1;null;12/04/2025
+19;Portable scale;null;10 Kg;1;null;12/04/2025
+20;Verwarmingsmantel;null;200 WATT;6;null;12/04/2025
+21;Waterkoker;Dash;120V, 1200 W;1;null;12/04/2025

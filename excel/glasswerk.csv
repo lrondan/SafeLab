@@ -1,0 +1,107 @@
+id;name;vol;container;Observation;date
+1;1-way destillation adapter;24/40;6;null;04/12/2025
+2;3-way destillation adapter;24/40;8;null;04/12/2025
+3;3-way Claisen adapter;24/40;2;null;04/12/2025
+4;3-way thermometer adapter;24/40;2;Er ontbreekt een seal voor de thermometer;04/12/2025
+5;Allihn condenser;300 mm;2;null;04/12/2025
+6;Bekerglas;1000 mL;1;null;04/12/2025
+7;Bekerglas (kort) ;400 mL;1;null;04/12/2025
+8;Bekerglas (lang) ;400 mL;2;null;04/12/2025
+9;Bekerglas (pyrex kort);250 mL;7;null;04/12/2025
+10;Bekerglas;100 mL;30;null;04/12/2025
+11;Bekerglas;150 mL;1;null;04/12/2025
+12;Bekerglas;50 mL;5;null;04/12/2025
+13;Bekerglas ;25 mL;2;null;04/12/2025
+14;Bekerglas (chengdu);250 mL;1;null;04/12/2025
+15;Bekerglas (lang);250 mL;2;null;04/12/2025
+16;Borosillicate Glass Set with 24/40 joints;500 mL;6;null;04/12/2025
+17;Buret;25 mL;5;null;04/12/2025
+18;Buret (acrylic);50 mL;13;null;04/12/2025
+19;Buret (borosillicaat glas) ;50 mL;7;null;04/12/2025
+20;Cirkelvormige holle lens;10 cm;10;null;04/12/2025
+21;Celcius thermometer;null;6;null;04/12/2025
+22;Erlenmeyer;25 mL;6;null;04/12/2025
+23;Erlenmeyer;50 mL;5;null;04/12/2025
+24;Erlenmeyer;100 mL;21;null;04/12/2025
+25;Erlenmeyer;150 mL;7;null;04/12/2025
+26;Erlenmeyer;200 mL;1;null;04/12/2025
+27;Erlenmeyer;250 mL;3;null;04/12/2025
+28;Erlenmeyer;300 mL;5;null;04/12/2025
+29;Erlenmeyer;500 mL;1;null;04/12/2025
+30;Erlenmeyer;1000 mL; ;null;04/12/2025
+31;Glass buchner funnel (with vacuum take-off adapter);200 mL;2;null;04/12/2025
+32;Glass buchner funnel (with vacuum take-off adapter);250 mL;5;null;04/12/2025
+33;Glass buchner funnel (without vacuum take-off adapter);50 mL;1;null;04/12/2025
+34;Glass stopper (Hexagon head);24/40;21;null;04/12/2025
+35;Graham condenser;300 mm;2;null;04/12/2025
+36;Liebig condenser;300 mm;2;null;04/12/2025
+37;Maatbeker (Plastic);250 mL;1;null;04/12/2025
+38;Maatcylinder (Plastic);10 mL;25;null;04/12/2025
+39;Maatcylinder;10 mL;9;null;04/12/2025
+40;Maatcylinder (Plastic);100 mL;1;null;04/12/2025
+41;Maatbeker (Plastic);1000 mL;1;null;04/12/2025
+42;Maatcylinder;1000 mL;1;null;04/12/2025
+43;Maatcylinder (Plastic);25 mL;5;null;04/12/2025
+44;Maatcylinder (Plastic);250  mL;1;null;04/12/2025
+45;Maatcylinder ;5 mL;1;null;04/12/2025
+46;Maatcylinder;50 mL;13;null;04/12/2025
+47;Maatcylinder (Plastic);50 mL;1;null;04/12/2025
+48;Maatcylinder;250 mL;2;null;04/12/2025
+49;Maatcylinder;500 mL;2;null;04/12/2025
+50;maatkolf ;100 mL ;3;null;04/12/2025
+51;Maatkolf;250 mL;26;null;04/12/2025
+52;Maatkolf;1000 mL;1;null;04/12/2025
+53;pipette (volumetrisch);1 mL;5;null;04/12/2025
+54;pipette (volumetrisch);4 mL;2;null;04/12/2025
+55;pipette (volumetrisch);5 mL;2;null;04/12/2025
+56;pipette (volumetrisch);10 mL;12;null;04/12/2025
+57;pipette (volumetrisch);15 mL;6;null;04/12/2025
+58;pipette (volumetrisch);20 mL;3;null;04/12/2025
+59;pipette (volumetrisch);25 mL;13;null;04/12/2025
+60;pipette (volumetrisch);50 mL;3;null;04/12/2025
+61;pipette ( verdeel);1 mL;5;null;04/12/2025
+62;pipette ( verdeel);2 mL;3;null;04/12/2025
+63;pipette ( verdeel);5 mL;2;null;04/12/2025
+64;pipette ( verdeel);10 mL;2;null;04/12/2025
+65;pipette ( verdeel);25 mL;5;null;04/12/2025
+66;Rondbodemkolf;50 mL;1;null;04/12/2025
+67;Rondbodemkolf;100 mL;1;null;04/12/2025
+68;Rondbodemkolf;250 mL;9;Twee van de negen kolven hebben een stopper die vast zit;04/12/2025
+69;Rondbodemkolf;500 mL;8;null;04/12/2025
+70;Rondbodemkolf;1000 mL;2;null;04/12/2025
+71;Rondbodemkolf 2-nekkig;250 mL;2;null;04/12/2025
+72;Rondbodemkolf 2-nekkig;1000 mL;2;null;04/12/2025
+73;Rondbodemkolf 3-nekkig;500 mL;2;null;04/12/2025
+74;Separatory funnel;50 mL;1;null;04/12/2025
+75;Separatory funnel;75 mL;2;null;04/12/2025
+76;Separatory funnel;125 mL;5;null;04/12/2025
+77;Separatory funnel;250 mL;2;null;04/12/2025
+78;Stopper (Plastic);14/23 & 29/32;5;null;04/12/2025
+79;Distillation take-off adapter;24/40;1;null;04/12/2025
+80;Trechter;190 mm;1;null;04/12/2025
+81;Trechter;160 mm;3;null;04/12/2025
+82;Trechter;130 mm;1;null;04/12/2025
+83;Trechter;120 mm;6;null;04/12/2025
+84;trechter ;60 mm;1;null;04/12/2025
+85;Trechter;75 mm;14;null;04/12/2025
+86;Trechter;100 mm;2;null;04/12/2025
+87;Bent vacuum take-off adapter;24/40;5;null;04/12/2025
+88;Vrigeux column;300 mm;2;null;04/12/2025
+89;Erlynmeyer;100 mL;7;null;04/12/2025
+90;Erlynmeyer;125 mL;17;null;04/12/2025
+91;Erlynmeyer;150 mL;11;null;04/12/2025
+92;Erlynmeyer;200 mL;3;null;04/12/2025
+93;Erlynmeyer;250 mL;6;null;04/12/2025
+94;Erlynmeyer;300 mL;9;null;04/12/2025
+95;Erlynmeyer;500 mL;2;null;04/12/2025
+96;Maatcylinder;1000 mL;1;null;04/12/2025
+97;Maatbeker;25 mL;2;null;04/12/2025
+98;Maatbeker;50 mL;4;null;04/12/2025
+99;Maatbeker;100 mL;24;null;04/12/2025
+100;Maatbeker;150 mL;1;null;04/12/2025
+101;Maatbeker;250 mL;1;null;04/12/2025
+102;Maatbeker;400 mL;1;null;04/12/2025
+103;Sample pot (kort );null;18;null;04/12/2025
+104;Sample pot (lang);null;14;null;04/12/2025
+105;Trechter (groot);null;6;null;04/12/2025
+106;Trechter (klein);null;1;null;04/12/2025
