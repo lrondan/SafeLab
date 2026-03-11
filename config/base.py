@@ -52,6 +52,7 @@ JAZZMIN_SETTINGS = {
         "inventory.Laboratory": "fas fa-flag",
         "inventory.Reagent": "fas fa-tasks",
 
+        "gallery.VideoMaterial": "fas fa-video",
 
         "orders.Order": "fas fa-shopping-cart",
         "orders.Product": "fas fa-shopping-cart",

@@ -19,7 +19,7 @@ class ReagentForm(forms.ModelForm):
 
     class Meta:
         model = Reagent
-        fields = ['common_name', 'formula', 'molecular_weight', 'cas_number', 'quantity', 'unit', 'status', 'safety_notes']
+        fields = ['common_name', 'formula', 'molecular_weight', 'cas_number', 'pubchem_cid' , 'quantity', 'unit', 'status', 'safety_notes']
         widgets = {
             'safety_notes': forms.Textarea(attrs={'rows': 3}),
         }

@@ -33,13 +33,6 @@ DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME', None)
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
-
-# Application definition
-
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
@@ -57,6 +50,7 @@ INSTALLED_APPS = [
     'apps.orders.apps.OrdersConfig',
     'apps.reports.apps.ReportsConfig',
     'apps.core.apps.CoreConfig',
+    'apps.gallery.apps.GalleryConfig',
 ]
 
 MIDDLEWARE = [
