@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ campus.name }} - {{ campus.state }}</h2>
+<a href="{% url 'home' %}" class="btn btn-secondary mb-3">← Back to Campuses</a>
+
+<h4>Laboratories</h4>
+<div class="list-group">
+    {% for lab in laboratories %}
+    <div class="list-group-item">
+        <a href="{% url 'lab_detail' lab.id %}" class="text-decoration-none">
+            {{ lab.name }} <span class="badge bg-secondary">{{ lab.responsible }}</span>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

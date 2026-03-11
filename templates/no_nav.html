@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>SafeLab</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+        <!-- Favicon -->
+        <link href="{% static 'img/image.ico' %}" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
+        
+        <!-- CSS Libraries -->
+        <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <!-- En el <head> de base.html -->
+        <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+        <!-- Opcional: para mejor UX -->
+        <script src="https://unpkg.com/htmx.org@2.0.1/dist/ext/loading-states.js"></script>
+
+        <!-- Template Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/no_nav.css' %}">
+    </head>
+
+{% if messages %}
+{% for message in messages %}
+    <div class="container mt-3">
+        <div class="alert fade-alert alert-small
+            {% if message.tags == 'error' %}alert-danger{% endif %}
+            {% if message.tags == 'success' %}alert-success{% endif %}
+            mb-3">
+            {{ message }}
+        </div>
+    </div>
+{% endfor %}
+{% endif %}
+
+
+
+{% block content %} 
+<!-- Web page by sections -->
+
+{% endblock %}
+
+{% block footer %}
+
+<!-- Template Javascript -->
+<script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/color-modes.js' %}"></script>
+
+{% endblock %}        

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Broken Item</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2ee;
+      --surface: #ffffff;
+      --border: #e0dbd3;
+      --text: #1a1814;
+      --muted: #8a8278;
+      --accent: #c0392b;
+      --accent-soft: #fdf0ef;
+      --accent-border: #f5c6c2;
+      --green: #27ae60;
+      --green-soft: #edf7f1;
+      --radius: 12px;
+    }
+
+    body {
+      background-image: url("/static/img/crack.jpg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      font-family: 'DM Sans', sans-serif;
+      /* background: var(--bg); */
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 2px 20px rgba(0,0,0,.06);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 2rem;
+    }
+
+    .icon-wrap {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .header p {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .errors {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      padding: .9rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: .85rem;
+      color: var(--accent);
+    }
+    .errors ul { padding-left: 1.2rem; }
+    .errors li + li { margin-top: .3rem; }
+
+    .field { margin-bottom: 1.2rem; }
+
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: .4rem;
+    }
+
+    label .req { color: var(--accent); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background: #faf9f7;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: .65rem .85rem;
+      transition: border-color .15s, box-shadow .15s;
+      outline: none;
+      appearance: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(192,57,43,.1);
+      background: #fff;
+    }
+
+    textarea { resize: vertical; min-height: 80px; }
+
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+
+    .severity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+    }
+
+    .severity-option { position: relative; }
+
+    .severity-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+    }
+
+    .severity-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .3rem;
+      padding: .75rem .5rem;
+      background: #faf9f7;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+      transition: all .15s;
+      line-height: 1.3;
+    }
+
+    .severity-option label .emoji { font-size: 1.3rem; }
+
+    .severity-option input:checked + label {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .severity-option label:hover {
+      border-color: #c0b8b0;
+      background: #f0ede8;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: .85rem;
+      background: var(--text);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: .5rem;
+      transition: opacity .15s, transform .1s;
+    }
+
+    .submit-btn:hover { opacity: .85; }
+    .submit-btn:active { transform: scale(.98); }
+
+    .hint {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a8278' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .85rem center;
+      padding-right: 2.5rem;
+    }
+
+    .boton {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    padding: .85rem;
+    background-color: #c8cacc;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: .5rem;
+    transition: opacity .15s, transform .1s;
+    }
+
+    @media (max-width: 400px) {
+      .card { padding: 1.75rem 1.25rem; }
+      .row-2 { grid-template-columns: 1fr; }
+      .severity-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <div class="icon-wrap">🧪</div>
+    <div>
+      <h1>Broken Item Report</h1>
+      <p>Lab materials &amp; instruments</p>
+    </div>
+  </div>
+
+  {% if errors %}
+  <div class="errors">
+    <ul>
+      {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="row-2">
+      <div class="field">
+        <label>Your name <span class="req">*</span></label>
+        <input type="text" name="student_name" value="{{ data.student_name|default:'' }}"
+               placeholder="Full name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label>Student ID</label>
+        <input type="text" name="student_id" value="{{ data.student_id|default:'' }}"
+               placeholder="Optional">
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="field">
+        <label>Broken item <span class="req">*</span></label>
+        <input type="text" name="item_name" value="{{ data.item_name|default:'' }}"
+               placeholder="e.g. Beaker 250mL">
+      </div>
+      <div class="field">
+        <label>Quantity <span class="req">*</span></label>
+        <input type="number" name="quantity" value="{{ data.quantity|default:'1' }}"
+               min="1" placeholder="1">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Severity</label>
+      <div class="severity-grid">
+        <div class="severity-option">
+          <input type="radio" name="severity" id="sev-minor" value="minor"
+                 {% if not data.severity or data.severity == 'minor' %}checked{% endif %}>
+          <label for="sev-minor">
+            <span class="emoji">🟡</span>Minor
+          </label>
+        </div>
+        <div class="severity-option">
+          <input type="radio" name="severity" id="sev-moderate" value="moderate"
+                 {% if data.severity == 'moderate' %}checked{% endif %}>
+          <label for="sev-moderate">
+            <span class="emoji">🟠</span>Moderate
+          </label>
+        </div>
+        <div class="severity-option">
+          <input type="radio" name="severity" id="sev-severe" value="severe"
+                 {% if data.severity == 'severe' %}checked{% endif %}>
+          <label for="sev-severe">
+            <span class="emoji">🔴</span>Severe
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>What happened? <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <textarea name="description" placeholder="Briefly describe how it broke...">{{ data.description|default:'' }}</textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Report</button>
+  </form>
+
+  <a class="boton" href="{% url 'home' %}">Return Back</a>
+
+  <p class="hint">Your report goes directly to the lab instructor.</p>
+
+
+</div>
+
+</body>
+</html>

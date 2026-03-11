@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ lab.name }} - {{ lab.campus }}</h2>
+<p><strong>Responsible:</strong> {{ lab.responsible }}</p>
+
+<a href="{% url 'campus_detail' lab.campus.id %}" class="btn btn-secondary mb-3">← Back to Labs</a>
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'export_lab_to_excel' lab.id %}" class="btn btn-outline-success btn-hover">📥 Download Excel Report</a>
+</div>
+
+<ul class="nav nav-tabs mb-4" id="labTabs" role="tablist">
+    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#equipments">Equipment</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#components">Components</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#reagents">Reagents</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#glasswares">Glassware</a></li>
+</ul>
+
+<div class="tab-content">
+
+    <!-- EQUIPMENT TAB -->
+    <div class="tab-pane fade show active" id="equipments">
+        <a href="{% url 'equipment_create' lab.id %}" class="btn btn-success mb-3 btn-hover">+ New Equipment</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Serial</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for eq in equipments %}
+                <tr>
+                    <td class="text-muted small">{{ equipments.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ eq.name }}</td>
+                    <td><code>{{ eq.serial_number }}</code></td>
+                    <td>{{ eq.quantity }}</td>
+                    <td><span class="badge bg-{% if eq.status == 'broken' %}danger{% elif eq.status == 'repair' %}warning{% else %}success{% endif %}">{{ eq.get_status_display }}</span></td>
+                    <td>{{ eq.updated_at }}</td>
+                    <td>
+                        <a href="{% url 'equipment_update' eq.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'equipment_delete' eq.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-3">No equipment registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=equipments tab='equipments' %}
+    </div>
+
+    <!-- COMPONENTS TAB -->
+    <div class="tab-pane fade" id="components">
+        <a href="{% url 'component_create' lab.id %}" class="btn btn-warning mb-3 btn-hover">+ New Component</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Description</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for c in components %}
+                <tr>
+                    <td class="text-muted small">{{ components.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.description }}</td>
+                    <td>{{ c.quantity }}</td>
+                    <td><span class="badge bg-{% if c.status == 'broken' %}danger{% elif c.status == 'missing' %}warning{% else %}success{% endif %}">{{ c.get_status_display }}</span></td>
+                    <td>{{ c.date_updated }}</td>
+                    <td>
+                        <a href="{% url 'component_update' c.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'component_delete' c.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-3">No components registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=components tab='components' %}
+    </div>
+
+    <!-- REAGENTS TAB -->
+    <div class="tab-pane fade" id="reagents">
+        <a href="{% url 'reagent_create' lab.id %}" class="btn btn-primary mb-3 btn-hover">+ New Reagent (PubChem)</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Formula</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for r in reagents %}
+                <tr>
+                    <td class="text-muted small">{{ reagents.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ r.common_name }}</td>
+                    <td><code>{{ r.formula }}</code></td>
+                    <td>{{ r.quantity }} {{ r.unit }}</td>
+                    <td><span class="badge bg-{% if r.status == 'out' %}danger{% elif r.status == 'low' %}warning{% else %}success{% endif %}">{{ r.get_status_display }}</span></td>
+                    <td>{{ r.updated_at }}</td>
+                    <td>
+                        {% if r.pubchem_link %}
+                            <a href="{{ r.pubchem_link }}" target="_blank"
+                               class="btn btn-sm btn-info btn-hover"
+                               data-bs-toggle="tooltip"
+                               title="Open full MSDS, GHS pictograms and hazards on PubChem">
+                                📘 MSDS
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'reagent_update' r.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'reagent_delete' r.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-3">No reagents registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=reagents tab='reagents' %}
+    </div>
+
+    <!-- GLASSWARE TAB -->
+    <div class="tab-pane fade" id="glasswares">
+        <a href="{% url 'glassware_create' lab.id %}" class="btn btn-info mb-3 btn-hover">+ New Glassware</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Volume</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for g in glasswares %}
+                <tr>
+                    <td class="text-muted small">{{ glasswares.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ g.name }}</td>
+                    <td>{{ g.volume }}</td>
+                    <td>{{ g.quantity }}</td>
+                    <td><span class="badge bg-{% if g.status == 'broken' %}danger{% elif g.status == 'missing' %}warning{% else %}success{% endif %}">{{ g.get_status_display }}</span></td>
+                    <td>{{ g.date_updated }}</td>
+                    <td>
+                        <a href="{% url 'glassware_update' g.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'glassware_delete' g.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-3">No glassware registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=glasswares tab='glasswares' %}
+    </div>
+
+</div>
+
+<script>
+// Keep active tab after pagination navigation
+const urlParams = new URLSearchParams(window.location.search);
+const activeTab = urlParams.get('tab');
+if (activeTab) {
+    const tabEl = document.querySelector(`a[href="#${activeTab}"]`);
+    if (tabEl) {
+        new bootstrap.Tab(tabEl).show();
+    }
+}
+</script>
+{% endblock %}

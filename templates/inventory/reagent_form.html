@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>New Reagent - {{ lab }}</h2>
+
+{% if message %}<div class="alert alert-info">{{ message }}</div>{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" name="search_pubchem" value="1" class="btn btn-warning btn-hover me-2">
+        🔎 Search & Autofill PubChem
+    </button>
+    
+    <button type="submit" class="btn btn-success btn-hover">
+        <span class="spinner-border spinner-border-sm d-none me-2" role="status"></span>
+        <span class="btn-text">Save Reagent</span>
+    </button>
+    
+    <a href="{% url 'lab_detail' lab.id %}" class="btn btn-secondary btn-hover">Cancel</a>
+</form>
+{% endblock %}

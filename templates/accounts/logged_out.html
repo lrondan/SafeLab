@@ -1,0 +1,64 @@
+{% extends 'no_nav.html' %}
+{% load static %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+
+</style>
+
+<!-- Confetti effect -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<div class="logout-container">
+    <div class="glass-card">
+        <div class="logout-icon">
+            <div class="logout-icon-circle">
+                <i class="fas fa-sign-out-alt logout-icon-inner"></i>
+            </div>
+        </div>
+        
+        <h1 class="logout-title">Successfully Logged Out</h1>
+        
+        <div class="logout-message">
+            <p>You have been securely logged out of your account.</p>
+            <p>Thank you for visiting! <span class="highlight">We hope to see you again soon.</span></p>
+        </div>
+        
+        <a href="{% url 'accounts:login' %}" class="btn-logout-primary">
+            <i class="fas fa-sign-in-alt me-2"></i>Login Again
+        </a>
+        
+        <div class="logout-options">
+            <div class="logout-options-title">Quick Actions</div>
+            <div class="logout-actions">
+                <a href="{% url 'accounts:register' %}" class="btn-logout-secondary">
+                    <i class="fas fa-user-plus me-2"></i>Create New Account
+                </a>
+                <a href="/" class="btn-logout-secondary">
+                    <i class="fas fa-home me-2"></i>Return to Home
+                </a>
+            </div>
+        </div>
+        
+        <div class="logout-feedback">
+            <div class="feedback-title">Feedback & Support</div>
+            <div class="feedback-links">
+                <a href="#" class="feedback-link">
+                    <i class="fas fa-question-circle me-1"></i>Help Center
+                </a>
+                <a href="#" class="feedback-link">
+                    <i class="fas fa-comment-alt me-1"></i>Contact Support
+                </a>
+                <a href="#" class="feedback-link">
+                    <i class="fas fa-star me-1"></i>Rate Our Service
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FontAwesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock %}

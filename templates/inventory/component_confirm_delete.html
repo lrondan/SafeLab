@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Delete Component</h2>
+<p>Are you sure you want to delete the component "{{ component.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'lab_detail' component.laboratory.id %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

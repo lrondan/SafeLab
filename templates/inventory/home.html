@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body {
+        background-image: url('/static/img/medical-concept.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 20px;
+    }
+    h1 {
+        color: #000000;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<h1>Campus</h1>
+<div class="row">
+    {% for campus in campuses %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{ campus.name }}</h3>
+                <h5 class="card-text">{{ campus.state }}</h5>
+                <p class="card-text">{{ campus.address }}</p>
+                <a href="{% url 'campus_detail' campus.id %}" class="btn btn-primary">View Laboratories</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
