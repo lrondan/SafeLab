@@ -59,6 +59,9 @@ JAZZMIN_SETTINGS = {
         "orders.Supplier": "fas fa-shopping-cart",
 
         "reports.Report": "fas fa-user-tie",
+
+        "schedule.SchedulePeriod": "fas fa-calendar-alt",
+        "schedule.LabSession": "fas fa-calendar",
     },
     
     # Iconos por defecto

@@ -23,13 +23,14 @@
         <a href="{% url 'equipment_create' lab.id %}" class="btn btn-success mb-3 btn-hover">+ New Equipment</a>
         <table class="table table-hover">
             <thead class="table-light">
-                <tr><th>#</th><th>Name</th><th>Serial</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+                <tr><th>#</th><th>Name</th><th>Model</th><th>Serial</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
             </thead>
             <tbody>
                 {% for eq in equipments %}
                 <tr>
                     <td class="text-muted small">{{ equipments.start_index|add:forloop.counter0 }}</td>
                     <td>{{ eq.name }}</td>
+                    <td>{{ eq.model_name }}</td>
                     <td><code>{{ eq.serial_number }}</code></td>
                     <td>{{ eq.quantity }}</td>
                     <td><span class="badge bg-{% if eq.status == 'broken' %}danger{% elif eq.status == 'repair' %}warning{% else %}success{% endif %}">{{ eq.get_status_display }}</span></td>

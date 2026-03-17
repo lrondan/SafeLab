@@ -20,10 +20,11 @@ from django.urls import include
 
 urlpatterns = [
     path('cpanel/', admin.site.urls, name='cpanel'),
+    path('', include('apps.core.urls')),
     path('accounts/', include('apps.accounts.urls')),
     path('orders/', include('apps.orders.urls')),
     path('reports/', include('apps.reports.urls')),
     path('gallery/', include('apps.gallery.urls')),
-    path('', include('apps.core.urls')),
+    path('schedule/',include('apps.schedule.urls')),
     path('home/', include('apps.inventory.urls')),
 ]

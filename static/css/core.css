@@ -1,0 +1,60 @@
+.chart {
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #0f172a;
+    position: relative;
+    background:
+        conic-gradient(
+            var(--color) calc(var(--value) * 1%),
+            #e5e7eb 0
+        );
+}
+
+/* efecto de anillo */
+.chart::before {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: white;
+    border-radius: 50%;
+}
+
+.chart span {
+    position: relative;
+    z-index: 1;
+}
+
+    .kpi-card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        width: 250px;
+        font-family: Arial, sans-serif;
+    }
+
+    .kpi-title {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .kpi-value {
+        font-size: 36px; /* Tamanho grande do número */
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .kpi-trend {
+        font-size: 12px;
+        color: #28a745; /* Verde para aumento */
+    }

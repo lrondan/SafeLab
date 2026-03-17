@@ -29,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') == 'True'
+DEBUG = 'False' if os.getenv('DEBUG') == 'False' else True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.14.115','localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.reports.apps.ReportsConfig',
     'apps.core.apps.CoreConfig',
     'apps.gallery.apps.GalleryConfig',
+    'apps.schedule.apps.ScheduleConfig',
 ]
 
 MIDDLEWARE = [
@@ -173,8 +174,6 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
 
 ACCOUNT_EMAIL_REQUIRED = True
-
-
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

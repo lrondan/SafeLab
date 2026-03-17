@@ -4,7 +4,7 @@ from .models import Component, Equipment, Reagent, Glassware
 class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
-        fields = ['name', 'description', 'serial_number', 'quantity', 'status', 'notes']
+        fields = ['name', 'model_name', 'description', 'serial_number', 'quantity', 'status', 'notes']
         widgets = {
             'notes': forms.Textarea(attrs={'rows': 3}),
         }

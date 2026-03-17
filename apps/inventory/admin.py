@@ -20,9 +20,9 @@ class LaboratoryAdmin(admin.ModelAdmin):
 
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'laboratory', 'quantity','serial_number')
+    list_display = ('name', 'model_name', 'laboratory', 'quantity', 'serial_number')
     list_filter = ('name',)
-    search_fields = ('name', 'serial_number')
+    search_fields = ('name', 'model_name', 'serial_number')
 
 @admin.register(Reagent)
 class ReagentAdmin(admin.ModelAdmin):

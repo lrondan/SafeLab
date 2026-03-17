@@ -29,6 +29,7 @@ class Equipment(models.Model):
     ]
 
     name = models.CharField(max_length=200)
+    model_name = models.CharField(max_length=50, blank=True, help_text="Model number or name of the equipment")
     description = models.TextField(blank=True)
     serial_number = models.CharField(max_length=100, unique=True)
     quantity = models.PositiveIntegerField(default=1)
