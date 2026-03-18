@@ -11,6 +11,11 @@ JAZZMIN_SETTINGS = {
     
     # Logo para el formulario de inicio de sesión en modo claro
     "login_logo_dark": None,
+
+    # Use the favicon (icon) file
+    "site_icon": "img/save-lan.ico",
+    # Optional: Use a different logo (e.g., for the sidebar brand)
+    "site_logo": "img/save-lab.ico",
     
     
     # Texto de bienvenida
@@ -48,9 +53,9 @@ JAZZMIN_SETTINGS = {
         "inventory.Campus": "fas fa-globe",
         "inventory.Component": "fas fa-cogs",
         "inventory.Equipment": "fas fa-tools",
-        "inventory.Glassware": "fas fa-tools",
+        "inventory.Glassware": "fas fa-flask",
         "inventory.Laboratory": "fas fa-flag",
-        "inventory.Reagent": "fas fa-tasks",
+        "inventory.Reagent": "fas fa-droplet",
 
         "gallery.VideoMaterial": "fas fa-video",
 
