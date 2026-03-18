@@ -50,7 +50,8 @@ class Supplier(models.Model):
 
 
 class Product(models.Model):
-    code = models.CharField(max_length=50, unique=True)
+    AUTOCODE = 'PKG'
+    code = models.CharField(max_length=50, blank=True, null=True, help_text='Auto')
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     category = models.CharField(
@@ -84,6 +85,12 @@ class Product(models.Model):
     @property
     def needs_restock(self):
         return self.current_stock <= self.min_stock
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.code:
+            self.code = f"{self.AUTOCODE}{self.id}"
+            super().save(update_fields=['code'])
 
     class Meta:
         verbose_name = 'Product'

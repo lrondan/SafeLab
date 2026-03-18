@@ -21,6 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    readonly_fields =['code',]
     list_display = ['code', 'name', 'category', 'current_stock', 'min_stock','active']
     list_filter = ['category', 'active', 'requires_approval']
     search_fields = ['code', 'name', 'description']
