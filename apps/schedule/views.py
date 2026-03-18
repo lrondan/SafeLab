@@ -1,9 +1,7 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import LabSession, SchedulePeriod
-from apps.inventory.models import Laboratory
-from django.contrib.auth.models import User
+from .models import LabSession
 
 
 # ── main grid ────────────────────────────────────────────────────
