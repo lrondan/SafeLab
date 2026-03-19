@@ -26,13 +26,13 @@ class EquipmentAdmin(admin.ModelAdmin):
 
 @admin.register(Reagent)
 class ReagentAdmin(admin.ModelAdmin):
-    list_display = ('common_name', 'formula', 'laboratory', 'cas_number')
+    list_display = ('common_name', 'formula', 'quantity', 'unit','laboratory', 'cas_number')
     list_filter = ('common_name',)
     search_fields = ('common_name', 'cas_number')
 
 @admin.register(Glassware)
 class GlasswareAdmin(admin.ModelAdmin):
-    list_display = ('name', 'laboratory')
+    list_display = ('name', 'volume', 'quantity', 'laboratory')
     list_filter = ('laboratory',)
     search_fields = ('name',)
 

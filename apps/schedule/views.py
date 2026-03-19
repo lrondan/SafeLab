@@ -10,6 +10,6 @@ from .models import LabSession
 def schedule(request):
     return render(request, 'schedules/schedule.html', {
         'sessions': {
-        'count':         LabSession.objects.all(),
+        'count':         LabSession.objects.all().order_by('day'),
         }
     })

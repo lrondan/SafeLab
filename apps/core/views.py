@@ -12,10 +12,13 @@ def dashboard(request):
     today = timezone.now().date()
     report_count = Report.objects.count()
     report_solved = Report.objects.filter(resolved='True').count()
+    labs_total = LabSession.objects.count()
+    labs_done = LabSession.objects.filter(practice_complete = True).count()
     return render(request, 'core/dash.html', {
         'stats': {
             'practicals': LabSession.objects.filter(practice_complete = False).count(),
-            'solved_rep':  ((report_solved/report_count) * 100).__int__ if report_count else 0,
+            'solved_rep':  (report_solved * 100 // report_count) if report_count else 0,
+            'labs'      :  (labs_done * 100 // labs_total) if labs_total else 0,
             'reagents':    Reagent.objects.filter().count(),
             'equipment':   Equipment.objects.filter().count(),
             'pending':     Report.objects.filter(resolved=False).count(),

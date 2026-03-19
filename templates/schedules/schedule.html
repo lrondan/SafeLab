@@ -21,6 +21,7 @@
           <th>Subject</th>
           <th>Professor</th>
           <th>Student Quant.</th>
+          <th>Practice complete</th>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +34,13 @@
           <td>{{ i.activity }}</td>
           <td>{{ i.professor}}</td>
           <td>{{ i.student_count}}</td>
+          <td>
+            {% if i.practice_complete %}
+            <span class="badge bg-success">Yes</span>
+            {% else %}
+            <span class="badge bg-danger">No</span>
+            {% endif %}
+          </td>
         </tr>
         {% empty %}
         <tr>

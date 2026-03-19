@@ -8,4 +8,4 @@ class PeriodAdmin(admin.ModelAdmin):
 
 @admin.register(LabSession)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ['period', 'activity', 'laboratory', 'day', 'professor']
+    list_display = ['period', 'activity', 'laboratory', 'day', 'professor', 'practice_complete']

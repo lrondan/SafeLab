@@ -5,6 +5,7 @@ from django.utils import timezone
 
 class ProductCategory(models.TextChoices):
     CHEMICAL = 'CHEMICAL', 'Chemical'
+    GLASSWARE = 'GLASSWARE','Glassware'
     COMPONENT = 'COMPONENT', 'Component'
     INSTRUMENT = 'INSTRUMENT', 'Lab Instrument'
     CONSUMABLE = 'CONSUMABLE', 'Consumable'

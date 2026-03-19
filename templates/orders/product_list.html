@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Products – LabOrders{% endblock %}
 {% block page_title %}Product Catalog{% endblock %}
+{% load mathfilters %}
 
 {% block content %}
 <div class="card shadow-sm mb-3">
@@ -45,7 +46,7 @@
       <thead class="table-light">
         <tr>
           <th>Code</th><th>Name</th><th>Category</th><th>Quant.</th><th>Unit</th><th>Supplier</th><th>Price</th>
-          <th class="text-end">Current Stock</th><th class="text-end">Min. Stock</th>
+          <th class="text-end">Current Stock</th><th class="text-end">Total</th>
           <th>Status</th><th></th>
         </tr>
       </thead>
@@ -67,7 +68,7 @@
           <td class="text-end fw-semibold {% if product.needs_restock %}text-danger{% else %}text-success{% endif %}">
             {{ product.current_stock }}
           </td>
-          <td class="text-end text-muted">{{ product.min_stock }}</td>
+          <td class="text-end text-success">{{product.quantity|mul:product.reference_price|floatformat:2}} USD</td>
           <td>
             {% if product.needs_restock %}
             <span class="badge bg-danger"><i class="bi bi-exclamation-triangle me-1"></i>Restock</span>
