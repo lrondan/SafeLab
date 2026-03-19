@@ -20,24 +20,24 @@ class LaboratoryAdmin(admin.ModelAdmin):
 
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'model_name', 'laboratory', 'quantity', 'serial_number')
+    list_display = ('name', 'model_name', 'serial_number', 'quantity' ,'laboratory', 'status')
     list_filter = ('name',)
     search_fields = ('name', 'model_name', 'serial_number')
 
 @admin.register(Reagent)
 class ReagentAdmin(admin.ModelAdmin):
-    list_display = ('common_name', 'formula', 'quantity', 'unit','laboratory', 'cas_number')
+    list_display = ('common_name', 'formula', 'quantity', 'unit','laboratory', 'cas_number', 'pubchem_cid', 'status')
     list_filter = ('common_name',)
     search_fields = ('common_name', 'cas_number')
 
 @admin.register(Glassware)
 class GlasswareAdmin(admin.ModelAdmin):
-    list_display = ('name', 'volume', 'quantity', 'laboratory')
+    list_display = ('name', 'description','volume', 'quantity', 'laboratory', 'status')
     list_filter = ('laboratory',)
     search_fields = ('name',)
 
 @admin.register(Component)
 class ComponentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'laboratory', 'quantity')
+    list_display = ('name', 'description','quantity','laboratory', 'status')
     list_filter = ('laboratory',)
     search_fields = ('name',)

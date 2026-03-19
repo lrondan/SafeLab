@@ -11,7 +11,7 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['number', 'requested_by', 'supplier', 'status', 'estimated_total', 'requested_at']
+    list_display = ['number', 'requested_by', 'supplier', 'status', 'requested_at']
     list_filter = ['status', 'requested_at', 'supplier']
     search_fields = ['number', 'requested_by__username', 'justification']
     readonly_fields = ['number', 'requested_at', 'created_at', 'updated_at']
