@@ -100,6 +100,12 @@ SafeLab implements:
 * CSRF protection
 * Input validation and sanitation
 
+### Django 6.0.3 fixes two security vulnerabilities and several bugs:
+
+* CVE-2026-25673: Moderate Denial-of-Service (DoS) vulnerability in URLField due to inefficient Unicode normalization on Windows. The `to_python()` method now bypasses NFKC normalization, improving performance with large inputs.
+
+* CVE-2026-25674: Incorrect permissions issue on file system objects in multithreaded environments. Django no longer relies on process umasks, applying permissions directly with `os.chmod()` after `os.mkdir()`.
+
 ---
 
 ## 📌 Future Improvements
