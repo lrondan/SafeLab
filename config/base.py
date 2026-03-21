@@ -13,7 +13,7 @@ JAZZMIN_SETTINGS = {
     "login_logo_dark": None,
 
     # Use the favicon (icon) file
-    "site_icon": "img/save-lan.ico",
+    "site_icon": "img/save-lab.ico",
     # Optional: Use a different logo (e.g., for the sidebar brand)
     "site_logo": "img/save-lab.ico",
     
@@ -23,17 +23,13 @@ JAZZMIN_SETTINGS = {
     
     # Copyright
     "copyright": "SafeLab © 2024",
-    
-    # Buscador
-    "search_model": ["auth.User", "clients.Client"],
-    
+        
     # Apps y modelos para mostrar en el menú
     "topmenu_links": [
         # Enlaces que aparecen en la parte superior
         {"name": "Start", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Website", "url": "/", "new_window": True},
         {"model": "auth.User"},
-        {"app": "clients"},
     ],
     
     # Menú de usuario (parte superior derecha)
