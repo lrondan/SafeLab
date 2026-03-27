@@ -4,9 +4,16 @@
 
 {% block content %}
 
-
 <div class="col-12 text-center">
   <h1 class="mb-4">Scheduled practices</h1>
+</div>
+
+<div class="d-flex justify-content-end mb-3">
+{% if session %}
+    <a href="{% url 'schedules:export' session.id %}" class="btn btn-outline-success btn-hover">
+        📥 Download Excel Report
+    </a>
+{% endif %}
 </div>
 
 <div class="card shadow-sm">
@@ -25,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for i in sessions.count %}
+        {% for i in count %}
         <tr>
           <td>{{ i.period }}</td>
           <td>{{ i.day }}</td>

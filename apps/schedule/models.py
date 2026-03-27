@@ -16,8 +16,8 @@ class SchedulePeriod(models.Model):
         return self.name
     
 class LabSession(models.Model):
-    period = models.ForeignKey(SchedulePeriod, on_delete=models.CASCADE, related_name='sessions')
-    laboratory = models.ForeignKey(Laboratory, on_delete=models.CASCADE, related_name='sessions')
+    period = models.ForeignKey(SchedulePeriod, on_delete=models.CASCADE, related_name='period_sessions')
+    laboratory = models.ForeignKey(Laboratory, on_delete=models.CASCADE, related_name='lab_sessions')
     day = models.DateField()
     professor = models.CharField(max_length=100, blank=False)
     start_time = models.TimeField()

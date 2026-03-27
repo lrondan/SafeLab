@@ -326,7 +326,6 @@ def glassware_delete(request, glassware_id):
 
 @login_required
 def export_lab_to_excel(request, lab_id):
-    """Export full laboratory inventory to Excel (Equipment + Reagents)."""
     lab = get_object_or_404(Laboratory, id=lab_id)
 
     wb = Workbook()
