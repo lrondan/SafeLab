@@ -41,19 +41,18 @@
   </div>
 </div>
 
+
+
+{% for order in orders %}
+<p>{{ order.number }}</p>
+
 <div class="d-flex justify-content-end mb-3">
 {% if products %}
-    <a href="{% url "orders:print_order_pdf" order_id=1 %}" class="btn btn-outline-danger btn-hover">
+    <a href="{% url "orders:print_order_pdf" order_id=order.id %}" class="btn btn-outline-danger btn-hover">
         📥 Download PDF Order
     </a>
 {% endif %}
 </div>
-
-{% for order in orders %}
-<p>{{ order.number }}</p>
-{% empty %}
-<p>No orders found.</p>
-{% endfor %}
 
 <div class="card shadow-sm">
   <div class="card-body p-0">
@@ -66,26 +65,26 @@
         </tr>
       </thead>
       <tbody>
-        {% for product in products %}
+        {% for item in order.items.all %}
         <tr>
-          <td class="text-muted small fw-semibold">{{ product.code }}</td>
+          <td class="text-muted small fw-semibold">{{ item.product.code }}</td>
           <td>
-            <strong>{{ product.name }}</strong>
-            {% if product.description %}
-            <div class="text-muted small">{{ product.description|truncatechars:50 }}</div>
+            <strong>{{ item.product.name }}</strong>
+            {% if item.product.description %}
+            <div class="text-muted small">{{ item.product.description|truncatechars:50 }}</div>
             {% endif %}
           </td>
-          <td><span class="badge bg-secondary">{{ product.get_category_display }}</span></td>
-          <td>{{ product.quantity }}</td>
-          <td>{{ product.get_unit_display }}</td>
-          <td>{{ product.preferred_supplier.name|default:"—" }}</td>
-          <td class="text-success"> {{product.reference_price}} USD</td>
-          <td class="text-end fw-semibold {% if product.needs_restock %}text-danger{% else %}text-success{% endif %}">
-            {{ product.current_stock }}
+          <td><span class="badge bg-secondary">{{ item.product.get_category_display }}</span></td>
+          <td>{{ item.product.quantity }}</td>
+          <td>{{ item.product.get_unit_display }}</td>
+          <td>{{ item.product.preferred_supplier.name|default:"—" }}</td>
+          <td class="text-success"> {{item.product.reference_price}} USD</td>
+          <td class="text-end fw-semibold {% if item.product.needs_restock %}text-danger{% else %}text-success{% endif %}">
+            {{ item.product.current_stock }}
           </td>
-          <td class="text-end text-success">{{product.quantity|mul:product.reference_price|floatformat:2}} USD</td>
+          <td class="text-end text-success">{{item.product.quantity|mul:item.product.reference_price|floatformat:2}} USD</td>
           <td>
-            {% if product.needs_restock %}
+            {% if item.product.needs_restock %}
             <span class="badge bg-danger"><i class="bi bi-exclamation-triangle me-1"></i>Restock</span>
             {% else %}
             <span class="badge bg-success">OK</span>
@@ -93,7 +92,7 @@
           </td>
           <td>
             {% if perms.orders.change_product %}
-            <a href="{% url 'orders:edit_product' product.pk %}" class="btn btn-sm btn-light" style="background-color: blue; color: white;">
+            <a href="{% url 'orders:edit_product' item.product.pk %}" class="btn btn-sm btn-light" style="background-color: blue; color: white;">
               <i class="bi bi-pencil"></i>
               Edit
             </a>
@@ -111,4 +110,7 @@
     </table>
   </div>
 </div>
+{% empty %}
+<p>No orders found.</p>
+{% endfor %}
 {% endblock %}
