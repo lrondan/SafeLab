@@ -96,24 +96,15 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
-        ordering = ['name']
+        ordering = ['created_at']
 
 
 class Order(models.Model):
     number = models.CharField(max_length=20, unique=True, editable=False)
-    requested_by = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='requested_orders'
-    )
-    approved_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, blank=True,
-        related_name='approved_orders'
-    )
-    supplier = models.ForeignKey(
-        Supplier, on_delete=models.SET_NULL, null=True, blank=True
-    )
-    status = models.CharField(
-        max_length=20, choices=OrderStatus.choices, default=OrderStatus.DRAFT
-    )
+    requested_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='requested_orders')
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_orders')
+    supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.DRAFT)
     requested_at = models.DateTimeField(default=timezone.now)
     required_by = models.DateField(null=True, blank=True)
     approved_at = models.DateTimeField(null=True, blank=True)
@@ -132,22 +123,16 @@ class Order(models.Model):
             last = Order.objects.order_by('-id').first()
             next_id = (last.id + 1) if last else 1
             self.number = f"ORD-{timezone.now().year}-{next_id:04d}"
+
         super().save(*args, **kwargs)
-        self.refresh_total()
+
 
     def refresh_total(self):
-        total = sum(
-            item.subtotal for item in self.items.all() if item.subtotal is not None
-        )
-        Order.objects.filter(pk=self.pk).update(estimated_total=total)
+        total = sum(item.subtotal for item in self.items.all())
 
-    @property
-    def can_edit(self):
-        return self.status in [OrderStatus.DRAFT, OrderStatus.PENDING]
-
-    @property
-    def can_approve(self):
-        return self.status == OrderStatus.PENDING
+        # ✅ actualizar instancia y DB correctamente
+        self.estimated_total = total
+        super().save(update_fields=['estimated_total'])
 
     class Meta:
         verbose_name = 'Order'
@@ -167,9 +152,20 @@ class OrderItem(models.Model):
 
     @property
     def subtotal(self):
-        if self.unit_price:
+        # ✅ SIEMPRE retorna número (NUNCA None)
+        if self.unit_price is not None:
             return self.quantity * self.unit_price
-        return None
+        return 0
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # 🔥 recalcula total automáticamente
+        self.order.refresh_total()
+
+    def delete(self, *args, **kwargs):
+        order = self.order
+        super().delete(*args, **kwargs)
+        order.refresh_total()
 
     class Meta:
         verbose_name = 'Order Item'

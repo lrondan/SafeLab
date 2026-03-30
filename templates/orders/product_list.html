@@ -6,8 +6,9 @@
 {% block content %}
 <div class="card shadow-sm mb-3">
   <div class="col-12 text-center">
-    <h1 class="mb-4">Pending orders</h1>
+    <h1 class="mb-4">Products ready to order</h1>
   </div>
+
   <div class="card-body py-2">
     <form method="get" class="row g-2 align-items-end">
       <div class="col-md-4">
@@ -39,6 +40,20 @@
     </form>
   </div>
 </div>
+
+<div class="d-flex justify-content-end mb-3">
+{% if products %}
+    <a href="{% url "orders:print_order_pdf" order_id=1 %}" class="btn btn-outline-danger btn-hover">
+        📥 Download PDF Order
+    </a>
+{% endif %}
+</div>
+
+{% for order in orders %}
+<p>{{ order.number }}</p>
+{% empty %}
+<p>No orders found.</p>
+{% endfor %}
 
 <div class="card shadow-sm">
   <div class="card-body p-0">
