@@ -85,10 +85,14 @@ def print_order_pdf(request, order_id):
         elementos.append(Image(logo_path, width=80, height=80))
 
     # 🧾 ENCABEZADO
+    doc_id = f"ADP-RQS-{datetime.now().strftime('%d%m%Y')}-{order.number[9:13]}-IFA"
+
+
     elementos.append(Paragraph("<b>Vanguard Foundation - PURCHASE ORDER</b>", styles['Title']))
     elementos.append(Spacer(1, 10))
 
     # 📄 INFO GENERAL
+    elementos.append(Paragraph(f"<b><spam>Document Code:</spam></b> {doc_id}", styles['Italic']))
     elementos.append(Paragraph(f"<b>Code:</b> {order.number}", styles['Normal']))
     elementos.append(Paragraph(f"<b>Status:</b> {order.get_status_display()}", styles['Normal']))
     elementos.append(Paragraph(f"<b>Requested by:</b> {order.requested_by}", styles['Normal']))
@@ -127,7 +131,7 @@ def print_order_pdf(request, order_id):
             producto.unit,
             producto.preferred_supplier,
             f"${producto.reference_price or 0}",
-            f"${producto.quantity * (producto.reference_price or 0)}",
+            f"${Decimal(producto.quantity * (producto.reference_price or 0))}",
             producto.created_at.strftime('%d/%m/%Y'),
         ])
 
