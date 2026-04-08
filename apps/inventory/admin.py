@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component
+from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component, OtherItem, SafeMaterial
 
 
 # Register your models here.
@@ -39,5 +39,17 @@ class GlasswareAdmin(admin.ModelAdmin):
 @admin.register(Component)
 class ComponentAdmin(admin.ModelAdmin):
     list_display = ('name', 'description','quantity','laboratory', 'status')
+    list_filter = ('laboratory',)
+    search_fields = ('name',)
+
+@admin.register(SafeMaterial)
+class SafeMaterialAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'quantity', 'unit', 'laboratory')
+    list_filter = ('laboratory',)
+    search_fields = ('name',)
+
+@admin.register(OtherItem)
+class OtherItemAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'quantity', 'status', 'laboratory')
     list_filter = ('laboratory',)
     search_fields = ('name',)

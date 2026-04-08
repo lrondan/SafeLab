@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ lab.name }} - {{ lab.campus }}</h2>
-<p><strong>Responsible:</strong> {{ lab.responsible }}</p>
+<div>
+    <h2>{{ lab.name }} - {{ lab.campus }}</h2>
 
-<a href="{% url 'campus_detail' lab.campus.id %}" class="btn btn-secondary mb-3">← Back to Labs</a>
+    <p><strong>Responsible:</strong> {{ lab.responsible }}</p>
 
-<div class="d-flex justify-content-end mb-3">
-    <a href="{% url 'export_lab_to_excel' lab.id %}" class="btn btn-outline-success btn-hover">📥 Download Excel Report</a>
-</div>
+    <a href="{% url 'campus_detail' lab.campus.id %}" class="btn btn-secondary mb-3">← Back to Labs</a>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'export_lab_to_excel' lab.id %}" class="btn btn-outline-success btn-hover">📥 Download Excel Report</a>
+    </div>
 
 <ul class="nav nav-tabs mb-4" id="labTabs" role="tablist">
     <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#equipments">Equipment</a></li>
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#components">Components</a></li>
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#reagents">Reagents</a></li>
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#glasswares">Glassware</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#safe_materials">Safe Materials</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#other_items">Other Items</a></li>
 </ul>
 
 <div class="tab-content">
@@ -143,8 +147,64 @@
         {% include 'inventory/pagination.html' with page_obj=glasswares tab='glasswares' %}
     </div>
 
-</div>
+    <!-- SAFE MATERIALS TAB -->
+    <div class="tab-pane fade" id="safe_materials">
+        <a href="{% url 'safe_material_create' lab.id %}" class="btn btn-secondary mb-3 btn-hover">+ New Safe Material</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Description</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for sm in safe_materials %}
+                <tr>
+                    <td class="text-muted small">{{ safe_materials.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ sm.name }}</td>
+                    <td>{{ sm.description }}</td>
+                    <td>{{ sm.quantity }}</td>
+                    <td><span class="badge bg-{% if sm.status == 'broken' %}danger{% elif sm.status == 'missing' %}warning{% else %}success{% endif %}">{{ sm.get_status_display }}</span></td>
+                    <td>{{ sm.date_updated }}</td>
+                    <td>
+                        <a href="{% url 'safe_material_update' sm.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'safe_material_delete' sm.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-3">No safe materials registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=safe_materials tab='safe_materials' %}
+    </div>
 
+    <!-- OTHER ITEMS TAB -->
+    <div class="tab-pane fade" id="other_items">
+        <a href="{% url 'other_item_create' lab.id %}" class="btn btn-secondary mb-3 btn-hover">+ New Other Item</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Description</th><th>Qty</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for oi in other_items %}
+                <tr>
+                    <td class="text-muted small">{{ other_items.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ oi.name }}</td>
+                    <td>{{ oi.description }}</td>
+                    <td>{{ oi.quantity }}</td>
+                    <td><span class="badge bg-{% if oi.status == 'broken' %}danger{% elif oi.status == 'missing' %}warning{% else %}success{% endif %}">{{ oi.get_status_display }}</span></td>
+                    <td>{{ oi.date_updated }}</td>
+                    <td>
+                        <a href="{% url 'other_item_update' oi.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'other_item_delete' oi.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-3">No other items registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=other_items tab='other_items' %}
+    </div>
+</div>
 <script>
 // Keep active tab after pagination navigation
 const urlParams = new URLSearchParams(window.location.search);

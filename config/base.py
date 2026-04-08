@@ -22,7 +22,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to SafeLab Admin Panel",
     
     # Copyright
-    "copyright": "SafeLab © 2024",
+    "copyright": "SafeLab",
         
     # Apps y modelos para mostrar en el menú
     "topmenu_links": [
@@ -52,6 +52,8 @@ JAZZMIN_SETTINGS = {
         "inventory.Glassware": "fas fa-flask",
         "inventory.Laboratory": "fas fa-flag",
         "inventory.Reagent": "fas fa-droplet",
+        "inventory.SafeMaterial": "fas fa-shield-alt",
+        "inventory.OtherItem": "fas fa-box-open",
 
         "gallery.VideoMaterial": "fas fa-video",
 

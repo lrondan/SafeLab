@@ -2,8 +2,8 @@ from urllib import request
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component
-from .forms import EquipmentForm, ReagentForm, GlasswareForm, ComponentForm
+from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component, SafeMaterial, OtherItem
+from .forms import EquipmentForm, ReagentForm, GlasswareForm, ComponentForm, SafeMaterialForm, OtherItemForm
 import pubchempy as pcp
 from django.core.paginator import Paginator
 
@@ -61,6 +61,18 @@ def lab_detail(request, lab_id):
     if component_status:
         components = components.filter(status=component_status)
 
+    #safe_materials
+    safe_materials = lab.safematerials.all().order_by('name')
+    safe_materials_status = request.GET.get('safe_materials_status')
+    if safe_materials_status:
+        safe_materials = safe_materials.filter(status=safe_materials_status)
+
+    #other_items
+    other_items = lab.otheritems.all().order_by('name')
+    other_items_status = request.GET.get('other_items_status')
+    if other_items_status:
+        other_items = other_items.filter(status=other_items_status)
+
     def paginate(qs, param):
         return Paginator(qs, 10).get_page(request.GET.get(param))
 
@@ -68,6 +80,9 @@ def lab_detail(request, lab_id):
     reagents = paginate(reagents, 'reagents_page')
     glasswares = paginate(glasswares, 'glasswares_page')
     components = paginate(components, 'components_page')
+    safe_materials = paginate(safe_materials, 'safe_materials_page')
+    other_items = paginate(other_items, 'other_items_page')
+
 
     return render(request, 'inventory/lab_detail.html', {
         'lab': lab,
@@ -75,6 +90,8 @@ def lab_detail(request, lab_id):
         'reagents': reagents,
         'glasswares': glasswares,
         'components': components,
+        'safe_materials': safe_materials,
+        'other_items': other_items,
         'equipment_statuses': Equipment.STATUSES,
         'reagent_statuses': Reagent.STATUSES,
         'glassware_statuses': Glassware.STATUSES,
@@ -323,6 +340,110 @@ def glassware_delete(request, glassware_id):
         'lab': glassware.laboratory
     })
 
+@login_required
+def safe_material_create(request, lab_id):
+    """Create new safe material."""
+    lab = get_object_or_404(Laboratory, id=lab_id)
+    if request.method == 'POST':
+        form = SafeMaterialForm(request.POST)
+        if form.is_valid():
+            safe_material = form.save(commit=False)
+            safe_material.laboratory = lab
+            safe_material.save()
+            return redirect('lab_detail', lab_id=lab.id)
+    else:
+        form = SafeMaterialForm()
+
+    return render(request, 'inventory/safe_material_form.html', {
+        'form': form,
+        'lab': lab,
+        'title': 'New Safe Material'
+    })
+
+@login_required
+def safe_material_update(request, safe_material_id):
+    """Update safe material."""
+    safe_material = get_object_or_404(SafeMaterial, id=safe_material_id)
+    if request.method == 'POST':
+        form = SafeMaterialForm(request.POST, instance=safe_material)
+        if form.is_valid():
+            form.save()
+            return redirect('lab_detail', lab_id=safe_material.laboratory.id)
+    else:
+        form = SafeMaterialForm(instance=safe_material)
+
+    return render(request, 'inventory/safe_material_form.html', {
+        'form': form,
+        'safe_material': safe_material,
+        'lab': safe_material.laboratory,
+        'title': 'Edit Safe Material'
+    })
+
+@login_required
+def safe_material_delete(request, safe_material_id):
+    """Delete safe material."""
+    safe_material = get_object_or_404(SafeMaterial, id=safe_material_id)
+    lab_id = safe_material.laboratory.id
+    if request.method == 'POST':
+        safe_material.delete()
+        return redirect('lab_detail', lab_id=lab_id)
+
+    return render(request, 'inventory/safe_material_confirm_delete.html', {
+        'safe_material': safe_material,
+        'lab': safe_material.laboratory
+    })
+
+def other_item_create(request, lab_id):
+    """Create new other item."""
+    lab = get_object_or_404(Laboratory, id=lab_id)
+    if request.method == 'POST':
+        form = OtherItemForm(request.POST)
+        if form.is_valid():
+            other_item = form.save(commit=False)
+            other_item.laboratory = lab
+            other_item.save()
+            return redirect('lab_detail', lab_id=lab.id)
+    else:
+        form = OtherItemForm()
+
+    return render(request, 'inventory/other_item_form.html', {
+        'form': form,
+        'lab': lab,
+        'title': 'New Other Item'
+    })
+
+@login_required
+def other_item_update(request, other_item_id):
+    """Update other item."""
+    other_item = get_object_or_404(OtherItem, id=other_item_id)
+    if request.method == 'POST':
+        form = OtherItemForm(request.POST, instance=other_item)
+        if form.is_valid():
+            form.save()
+            return redirect('lab_detail', lab_id=other_item.laboratory.id)
+    else:
+        form = OtherItemForm(instance=other_item)
+
+    return render(request, 'inventory/other_item_form.html', {
+        'form': form,
+        'other_item': other_item,
+        'lab': other_item.laboratory,
+        'title': 'Edit Other Item'
+    })
+
+@login_required
+def other_item_delete(request, other_item_id):
+    """Delete other item."""
+    other_item = get_object_or_404(OtherItem, id=other_item_id)
+    lab_id = other_item.laboratory.id
+    if request.method == 'POST':
+        other_item.delete()
+        return redirect('lab_detail', lab_id=lab_id)
+
+    return render(request, 'inventory/other_item_confirm_delete.html', {
+        'other_item': other_item,
+        'lab': other_item.laboratory
+    })
 
 @login_required
 def export_lab_to_excel(request, lab_id):
@@ -458,6 +579,61 @@ def export_lab_to_excel(request, lab_id):
     title_cell.value = f"Lab Inventory Report - {lab.name} ({lab.campus.name})"
     title_cell.font = Font(bold=True, size=14)
     ws_reag.merge_cells('A1:I1')
+
+    # ====================== SAFE MATERIALS SHEET ======================
+    ws_safe = wb.create_sheet("Safe Materials")
+    headers_safe = ['Name', 'Description', 'Quantity', 'Status', 'Notes', 'Updated At']
+
+    for col, header in enumerate(headers_safe, 1):
+        cell = ws_safe.cell(row=1, column=col, value=header)
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = PatternFill(start_color="1f4e79", end_color="1f4e79", fill_type="solid")
+    safe_materials = lab.safematerials.all().order_by('name')
+    for row_idx, sm in enumerate(safe_materials, 2):
+        ws_safe.cell(row=row_idx, column=1, value=sm.name)
+        ws_safe.cell(row=row_idx, column=2, value=sm.description or "")
+        ws_safe.cell(row=row_idx, column=3, value=sm.quantity)
+        ws_safe.cell(row=row_idx, column=4, value=sm.get_status_display())
+        ws_safe.cell(row=row_idx, column=5, value=sm.notes or "")
+        ws_safe.cell(row=row_idx, column=6, value=sm.date_updated.strftime("%Y-%m-%d %H:%M"))
+
+    # Auto-ajustar
+    for col in ws_safe.columns:
+        max_length = max((len(str(cell.value)) for cell in col if cell.value), default=10)
+        ws_safe.column_dimensions[get_column_letter(col[0].column)].width = min(max_length + 2, 50)
+    # Título
+    ws_safe.insert_rows(1)
+    title_cell = ws_safe['A1']
+    title_cell.value = f"Lab Inventory Report - {lab.name} ({lab.campus.name})"
+    title_cell.font = Font(bold=True, size=14)
+    ws_safe.merge_cells('A1:F1')
+
+
+    # ====================== OTHER ITEMS SHEET ======================
+    ws_other = wb.create_sheet("Other Items")
+    headers_other = ['Name', 'Description', 'Quantity', 'Status', 'Notes', 'Updated At']
+    for col, header in enumerate(headers_other, 1):
+        cell = ws_other.cell(row=1, column=col, value=header)
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = PatternFill(start_color="1f4e79", end_color="1f4e79", fill_type="solid")
+    other_items = lab.otheritems.all().order_by('name')
+    for row_idx, oi in enumerate(other_items, 2):   
+        ws_other.cell(row=row_idx, column=1, value=oi.name)
+        ws_other.cell(row=row_idx, column=2, value=oi.description or "")
+        ws_other.cell(row=row_idx, column=3, value=oi.quantity)
+        ws_other.cell(row=row_idx, column=4, value=oi.get_status_display())
+        ws_other.cell(row=row_idx, column=5, value=oi.notes or "")
+        ws_other.cell(row=row_idx, column=6, value=oi.date_updated.strftime("%Y-%m-%d %H:%M"))
+    # Auto-ajustar
+    for col in ws_other.columns:
+        max_length = max((len(str(cell.value)) for cell in col if cell.value), default=10)
+        ws_other.column_dimensions[get_column_letter(col[0].column)].width = min(max_length + 2, 50)
+    # Título
+    ws_other.insert_rows(1)
+    title_cell = ws_other['A1']
+    title_cell.value = f"Lab Inventory Report - {lab.name} ({lab.campus.name})"
+    title_cell.font = Font(bold=True, size=14)
+    ws_other.merge_cells('A1:F1')
 
     # =================== Respuesta ===================
     filename = f"Lab_Inventory_{lab.name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx"

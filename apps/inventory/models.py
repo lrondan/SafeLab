@@ -119,3 +119,45 @@ class Component(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.laboratory.name}"
+
+class SafeMaterial(models.Model):
+
+    UNITS = [
+        ('g', 'g'),
+        ('ml', 'ml'),
+        ('pcs', 'pcs'),
+    ]
+
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    quantity = models.FloatField(default=0)
+    status = models.CharField(max_length=20, choices=[('available', '✅ Available'), ('low', '⚠️ Low Stock'), ('out', '❌ Out of Stock')], default='available')
+    unit = models.CharField(max_length=10, choices=UNITS, default='g')
+    laboratory = models.ForeignKey(Laboratory, on_delete=models.CASCADE, related_name='safematerials')
+    
+    date_added = models.DateField(default=timezone.now)
+    date_updated = models.DateTimeField(auto_now=True)
+    notes = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.laboratory.name}"
+    
+class OtherItem(models.Model):
+    STATUSES = [
+        ('good', '✅ Good'),
+        ('broken', '❌ Broken'),
+        ('missing', '⚠️ Missing'),
+    ]
+
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    quantity = models.PositiveIntegerField(default=1)
+    status = models.CharField(max_length=20, choices=STATUSES, default='good')
+    laboratory = models.ForeignKey(Laboratory, on_delete=models.CASCADE, related_name='otheritems')
+    
+    date_added = models.DateField(default=timezone.now)
+    date_updated = models.DateTimeField(auto_now=True)
+    notes = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.laboratory.name}"
