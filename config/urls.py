@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from apps.core import views
 
 urlpatterns = [
     path('cpanel/', admin.site.urls, name='cpanel'),
@@ -28,3 +29,8 @@ urlpatterns = [
     path('schedule/',include('apps.schedule.urls')),
     path('home/', include('apps.inventory.urls')),
 ]
+
+handler400 = 'apps.core.views.custom_400_view'
+handler403 = 'apps.core.views.custom_403_view'
+handler404 = 'apps.core.views.custom_404_view'
+handler500 = 'apps.core.views.custom_500_view'
