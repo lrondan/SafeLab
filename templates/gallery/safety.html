@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load static%}
+
+{% block content %}
+
+<h1 class="text-center">Risk Identification</h1>
+<h2>Chemical hazards</h2>
+<p>Chemical risks in a laboratory are associated with the handling, storage and disposal of chemical
+    substances that may represent a danger to human health, the environment or the laboratory infrastructure.
+    These risks can manifest themselves in various forms, such as toxicity, flammability, reactivity, corrosiveness
+    or explosiveness, depending on the properties of the chemicals used.
+</p>
+<h3>Chemical hazards identification</h3>
+<ol>
+	<li>Toxic Substances: Chemicals that can cause harm to health through inhalation, ingestion or skin contact (e.g. heavy metals, organic solvents, cyanides).</li>
+	<li>Flammable Substances: Compounds that can easily ignite in the presence of an ignition source (e.g. alcohol, acetone, ether).</li>
+	<li>Corrosive Substances: Products that can cause severe damage to living tissue or materials (for example, strong acids such as sulfuric acid or bases such as sodium hydroxide).</li>
+	<li>Reactive Substances: Compounds that can react violently with other chemicals, water or air (e.g., peroxides, metallic sodium).</li>
+	<li>Explosive Substances: Chemicals that can release large amounts of energy in the form of an explosion (e.g. nitrates, perchlorates).</li>
+	<li>Hazardous Gases and Vapors: Toxic or asphyxiating gases that can accumulate in closed spaces (e.g., chlorine, ammonia, carbon monoxide).</li>
+</ol>
+
+<h2>Physical hazards</h2>
+<p>Physical hazards in a laboratory are associated with environmental factors, equipment and conditions that can cause physical
+    harm to personnel, such as injuries, burns, cuts or radiation exposure. These risks can arise from the use of machinery,
+    tools, extreme temperatures, noise, inadequate lighting or radiation. Key aspects related to physical hazards are detailed below:
+</p>
+<h3>Physical hazards identification</h3>
+<ol>
+    <li>Mechanical Hazards: Risks associated with the use of machinery and equipment, such as moving parts, sharp edges or pinch points (e.g., centrifuges, mixers, cutting tools).</li>
+    <li>Thermal Hazards: Dangers related to extreme temperatures, including burns from hot surfaces or cold burns from cryogenic materials (e.g., Bunsen burners, liquid nitrogen).</li>
+    <li>Electrical Hazards: Risks of electric shock or fire due to faulty wiring, damaged equipment or improper use of electrical devices (e.g., power strips, laboratory instruments).</li>
+    <li>Radiation Hazards: Exposure to ionizing radiation (e.g., X-rays, radioactive materials) or non-ionizing radiation (e.g., UV light) that can cause health issues (e.g., cancer, skin damage).</li>
+    <li>Noise Hazards: Prolonged exposure to high noise levels from equipment can lead to hearing loss or stress (e.g., centrifuges, autoclaves).</li>
+    <li>Ergonomic Hazards: Risks associated with poor workstation design or repetitive tasks that can lead to musculoskeletal disorders (e.g., pipetting, microscope use).</li>
+</ol>
+    
+<h1 class="text-center">Pictograms</h1>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px; padding: 10px;">
+    <img src="{% static "img/pictograms.jpg" %}" alt="Pictograms0" class="img-fluid mx-auto d-block"
+        style="max-width: 600px;">
+    <img src="{% static "img/nfpa.jpg" %}" alt="Pictograms1" class="img-fluid mx-auto d-block"
+        style="max-width: 600px;">
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; padding: 10px;">
+    <img src="{% static "img/maxresdefault.jpg" %}" alt="Pictograms2" class="img-fluid mx-auto d-block"
+        style="max-width: 600px;">
+</div>
+
+{% endblock %}

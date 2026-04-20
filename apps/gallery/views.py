@@ -6,3 +6,6 @@ def gallery(request):
 
     return render(request, 'gallery/gallery.html', 
                   {'materials': materials})
+
+def safety(request):
+    return render(request, 'gallery/safety.html')

@@ -34,7 +34,7 @@ JAZZMIN_SETTINGS = {
     
     # Menú de usuario (parte superior derecha)
     "usermenu_links": [
-        {"name": "Soporte", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
         {"model": "auth.user"}
     ],
     
