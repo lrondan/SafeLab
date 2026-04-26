@@ -54,6 +54,7 @@ JAZZMIN_SETTINGS = {
         "inventory.Reagent": "fas fa-droplet",
         "inventory.SafeMaterial": "fas fa-shield-alt",
         "inventory.OtherItem": "fas fa-box-open",
+        "inventory.ProcessTrainer": "fas fa-cogs",
 
         "gallery.VideoMaterial": "fas fa-video",
 

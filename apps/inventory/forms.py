@@ -1,5 +1,5 @@
 from django import forms
-from .models import Component, Equipment, Reagent, Glassware, SafeMaterial, OtherItem
+from .models import Component, Equipment, Reagent, Glassware, SafeMaterial, OtherItem, ProcessTrainer
 
 class EquipmentForm(forms.ModelForm):
     class Meta:
@@ -54,4 +54,13 @@ class OtherItemForm(forms.ModelForm):
         fields = ['name', 'description', 'quantity', 'status', 'notes']
         widgets = {
             'notes': forms.Textarea(attrs={'rows': 3}),
+        }
+
+
+class ProcessTrainerForm(forms.ModelForm):
+    class Meta:
+        model = ProcessTrainer
+        fields = ['model', 'quantity', 'description', 'laboratory', 'status']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3}),
         }

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component, OtherItem, SafeMaterial
+from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component, OtherItem, SafeMaterial, ProcessTrainer
 
 
 # Register your models here.
@@ -53,3 +53,10 @@ class OtherItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'quantity', 'status', 'laboratory')
     list_filter = ('laboratory',)
     search_fields = ('name',)
+
+@admin.register(ProcessTrainer)
+class ProcessTrainerAdmin(admin.ModelAdmin):
+    list_display = ('model', 'serial_number','quantity','description', 'laboratory')
+    list_filter = ('laboratory', 'model', 'serial_number')
+    search_fields = ('model', 'serial_number')
+    readonly_fields = ('serial_number',)

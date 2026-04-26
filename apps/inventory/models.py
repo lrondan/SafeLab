@@ -161,3 +161,35 @@ class OtherItem(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.laboratory.name}"
+
+
+# Note: This model should be move to the server
+class ProcessTrainer(models.Model):
+    STATUSES = [
+        ('active', '✅ Active'),
+        ('inactive', '❌ Inactive'),
+    ]
+
+    model = models.CharField(max_length=200, help_text="The model or name of the process trainer should be started with VSEN")
+    quantity = models.PositiveIntegerField(default=1)
+    laboratory = models.ForeignKey(Laboratory, on_delete=models.CASCADE, related_name='processtrainers')
+    serial_number = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    status = models.CharField(max_length=20, choices=STATUSES, default='active')
+
+    date_added = models.DateField(default=timezone.now)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"[{self.model}] - {self.serial_number}"
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.serial_number:
+            self.serial_number = f"{self.model}-{self.id:05d}"
+            super().save(update_fields=['serial_number'])
+
+    class Meta:
+        verbose_name = 'Process Trainer'
+        verbose_name_plural = 'Process Trainers'
+        ordering = ['date_added']
