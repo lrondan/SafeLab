@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ title }} - {{ lab}}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-success btn-hover">
+        <span class="spinner-border spinner-border-sm d-none me-2" role="status"></span>
+        <span class="btn-text">Save Process Trainner</span>
+    </button>
+    
+    <!-- Cancel link seguro (funciona en crear y editar) -->
+    <a href="{% url 'lab_detail' lab.id %}" 
+       class="btn btn-secondary btn-hover">Cancel</a>
+</form>
+{% endblock %}

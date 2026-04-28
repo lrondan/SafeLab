@@ -60,6 +60,11 @@
             <!-- Campus -->
             <div class="col-md-6">
                 <div class="card text-center p-4 shadow-sm">
+                    {% if stats.total_reports == 0 %}
+                    <p class="text-muted small mt-2">
+                        No breakage reports in the current quarter.
+                    </p>
+                    {% else %}
                     <h6 class="fw-bold mb-3">Percentage of Reports Resolved</h6>
 
                     <div class="chart"
@@ -68,15 +73,19 @@
                     </div>
 
                     <p class="text-muted small mt-2">
-                        Total Reports
+                        Total Reports solved
                     </p>
+                    {% endif %}
                 </div>
             </div>
 
             <!-- Laboratories -->
             <div class="col-md-6">
                 <div class="card text-center p-4 shadow-sm">
-                    <h6 class="fw-bold mb-3">Pending Laboratory Practices</h6>
+                {% if stats.total == 0 %}
+                    <p>No laboratory practices in the current quarter.</p>
+                {% else %}
+                    <h6 class="fw-bold mb-3">Laboratory Practices Completed</h6>
 
                     <div class="chart"
                         style="--value: {{ stats.labs }}; --color:#f1510c;">
@@ -84,8 +93,9 @@
                     </div>
 
                     <p class="text-muted small mt-2">
-                        Laboratory practices pending in the current quarter
+                        Laboratory practices completed in the current quarter
                     </p>
+                {% endif %}
                 </div>
             </div>
         </div>

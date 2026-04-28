@@ -162,12 +162,10 @@ class OtherItem(models.Model):
     def __str__(self):
         return f"{self.name} - {self.laboratory.name}"
 
-
-# Note: This model should be move to the server
 class ProcessTrainer(models.Model):
     STATUSES = [
-        ('active', '✅ Active'),
-        ('inactive', '❌ Inactive'),
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
     ]
 
     model = models.CharField(max_length=200, help_text="The model or name of the process trainer should be started with VSEN")

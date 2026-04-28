@@ -17,6 +17,7 @@
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#reagents">Reagents</a></li>
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#glasswares">Glassware</a></li>
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#safe_materials">Safe Materials</a></li>
+    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#process_trainers">Process Trainers</a></li>
     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#other_items">Other Items</a></li>
 </ul>
 
@@ -174,6 +175,36 @@
             </tbody>
         </table>
         {% include 'inventory/pagination.html' with page_obj=safe_materials tab='safe_materials' %}
+    </div>
+
+     <!-- PROCESS TRAINERS TAB -->
+    <div class="tab-pane fade" id="process_trainers">
+        <a href="{% url 'process_trainer_create' lab.id %}" class="btn btn-secondary mb-3 btn-hover">+ New Process Trainner</a>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr><th>#</th><th>Model</th><th>Serial Number</th><th>Qty</th><th>Description</th><th>Status</th><th>Last Update</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for pt in process_trainers %}
+                <tr>
+                    <td class="text-muted small">{{ process_trainers.start_index|add:forloop.counter0 }}</td>
+                    <td>{{ pt.model }}</td>
+                    <td>{{ pt.serial_number }}</td>
+                    <td>{{ pt.quantity }}</td>
+                    <td>{{ pt.description }}</td>
+                    <td><span class="badge bg-{% if pt.status == 'inactive' %}danger{% else %}success{% endif %}">{{ pt.get_status_display }}</span></td>
+                    <td>{{ pt.date_updated }}</td>
+                    <td>
+                        <a href="{% url 'process_trainer_update' pt.id %}" class="btn btn-sm btn-primary btn-hover">Edit</a>
+                        <a href="{% url 'process_trainer_delete' pt.id %}" class="btn btn-sm btn-danger btn-hover">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" class="text-center text-muted py-3">No process trainers registered.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'inventory/pagination.html' with page_obj=process_trainers tab='process_trainers' %}
     </div>
 
     <!-- OTHER ITEMS TAB -->

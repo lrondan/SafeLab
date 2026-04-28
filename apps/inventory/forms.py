@@ -56,7 +56,6 @@ class OtherItemForm(forms.ModelForm):
             'notes': forms.Textarea(attrs={'rows': 3}),
         }
 
-
 class ProcessTrainerForm(forms.ModelForm):
     class Meta:
         model = ProcessTrainer

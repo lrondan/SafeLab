@@ -2,8 +2,8 @@ from urllib import request
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component, SafeMaterial, OtherItem
-from .forms import EquipmentForm, ReagentForm, GlasswareForm, ComponentForm, SafeMaterialForm, OtherItemForm
+from .models import Campus, Laboratory, Equipment, Reagent, Glassware, Component, SafeMaterial, OtherItem, ProcessTrainer
+from .forms import EquipmentForm, ReagentForm, GlasswareForm, ComponentForm, SafeMaterialForm, OtherItemForm, ProcessTrainerForm
 import pubchempy as pcp
 from django.core.paginator import Paginator
 
@@ -73,6 +73,11 @@ def lab_detail(request, lab_id):
     if other_items_status:
         other_items = other_items.filter(status=other_items_status)
 
+    process_trainers = lab.processtrainers.all().order_by('model')
+    process_trainers_status = request.GET.get('process_trainers_status')
+    if process_trainers_status:
+        process_trainers = process_trainers.filter(status=process_trainers_status)
+
     def paginate(qs, param):
         return Paginator(qs, 10).get_page(request.GET.get(param))
 
@@ -81,6 +86,7 @@ def lab_detail(request, lab_id):
     glasswares = paginate(glasswares, 'glasswares_page')
     components = paginate(components, 'components_page')
     safe_materials = paginate(safe_materials, 'safe_materials_page')
+    process_trainer = paginate(process_trainers, 'process_trainer_page')
     other_items = paginate(other_items, 'other_items_page')
 
 
@@ -91,11 +97,13 @@ def lab_detail(request, lab_id):
         'glasswares': glasswares,
         'components': components,
         'safe_materials': safe_materials,
+        'process_trainers': process_trainers,
         'other_items': other_items,
         'equipment_statuses': Equipment.STATUSES,
         'reagent_statuses': Reagent.STATUSES,
         'glassware_statuses': Glassware.STATUSES,
         'component_statuses': Component.STATUSES,
+        'process_trainer_statuses': ProcessTrainer.STATUSES,
     })
 
 
@@ -393,6 +401,59 @@ def safe_material_delete(request, safe_material_id):
         'lab': safe_material.laboratory
     })
 
+
+@login_required
+def process_trainer_update(request, process_trainer_id):
+    process_trainer = get_object_or_404(ProcessTrainer, id=process_trainer_id)
+    if request.method == 'POST':
+        form = ProcessTrainerForm(request.POST, instance=process_trainer)
+        if form.is_valid():
+            form.save()
+            return redirect('lab_detail', lab_id=process_trainer.laboratory.id)
+    else:
+        form = ProcessTrainerForm(instance=process_trainer)
+
+    return render(request, 'inventory/process_trainer_form.html', {
+        'form': form,
+        'process_trainer': process_trainer,
+        'lab': process_trainer.laboratory,
+        'title': 'Edit Safe Process Trainner'
+    })
+
+@login_required
+def process_trainer_create(request, lab_id):
+    lab = get_object_or_404(Laboratory, id=lab_id)
+    if request.method == 'POST':
+        form = ProcessTrainerForm(request.POST)
+        if form.is_valid():
+            process_trainer = form.save(commit=False)
+            process_trainer.laboratory = lab
+            process_trainer.save()
+            return redirect('lab_detail', lab_id=lab.id)
+    else:
+        form = ProcessTrainerForm()
+
+    return render(request, 'inventory/process_trainer_form.html', {
+        'form': form,
+        'lab': lab,
+        'title': 'New Process Trainer'
+    })
+
+@login_required
+def process_trainer_delete(request, process_trainer_id):
+    """Delete process trainer."""
+    process_trainer = get_object_or_404(ProcessTrainer, id=process_trainer_id)
+    lab_id = process_trainer.laboratory.id
+    if request.method == 'POST':
+        process_trainer.delete()
+        return redirect('lab_detail', lab_id=lab_id)
+
+    return render(request, 'inventory/process_trainer_delete.html', {
+        'process_trainer': process_trainer,
+        'lab': process_trainer.laboratory
+    })
+
+@login_required
 def other_item_create(request, lab_id):
     """Create new other item."""
     lab = get_object_or_404(Laboratory, id=lab_id)
@@ -454,7 +515,7 @@ def export_lab_to_excel(request, lab_id):
 
     # ====================== EQUIPMENT SHEET ======================
     ws_equip = wb.create_sheet("Equipment")
-    headers_equip = ['Name', 'Serial Number', 'Quantity', 'Status', 'Description', 'Notes', 'Updated At']
+    headers_equip = ['Name', 'Model', 'Serial Number', 'Quantity', 'Status', 'Description', 'Updated At']
     
     # Encabezados bonitos
     for col, header in enumerate(headers_equip, 1):
@@ -465,11 +526,11 @@ def export_lab_to_excel(request, lab_id):
     equipments = lab.equipments.all().order_by('name')
     for row_idx, eq in enumerate(equipments, 2):
         ws_equip.cell(row=row_idx, column=1, value=eq.name)
-        ws_equip.cell(row=row_idx, column=2, value=eq.serial_number)
-        ws_equip.cell(row=row_idx, column=3, value=eq.quantity)
-        ws_equip.cell(row=row_idx, column=4, value=eq.get_status_display())
-        ws_equip.cell(row=row_idx, column=5, value=eq.description or "")
-        ws_equip.cell(row=row_idx, column=6, value=eq.notes or "")
+        ws_equip.cell(row=row_idx, column=2, value=eq.model_name or "")
+        ws_equip.cell(row=row_idx, column=3, value=eq.serial_number)
+        ws_equip.cell(row=row_idx, column=4, value=eq.quantity)
+        ws_equip.cell(row=row_idx, column=5, value=eq.get_status_display())
+        ws_equip.cell(row=row_idx, column=6, value=eq.description or "")
         ws_equip.cell(row=row_idx, column=7, value=eq.updated_at.strftime("%Y-%m-%d %H:%M"))
 
     # Auto-ajustar columnas
@@ -607,6 +668,34 @@ def export_lab_to_excel(request, lab_id):
     title_cell.value = f"Lab Inventory Report - {lab.name} ({lab.campus.name})"
     title_cell.font = Font(bold=True, size=14)
     ws_safe.merge_cells('A1:F1')
+
+    # ====================== PROCESS TRAINERS SHEET ======================
+    ws_process = wb.create_sheet("Process Trainers")
+    headers_process = ['Model', 'Serial Number', 'Quantity', 'Description', 'Status', 'Updated At']
+
+    for col, header in enumerate(headers_process, 1):
+        cell = ws_process.cell(row=1, column=col, value=header)
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = PatternFill(start_color="1f4e79", end_color="1f4e79", fill_type="solid")
+    process_trainers = lab.processtrainers.all().order_by('model')
+    for row_idx, pt in enumerate(process_trainers, 2):
+        ws_process.cell(row=row_idx, column=1, value=pt.model)
+        ws_process.cell(row=row_idx, column=2, value=pt.serial_number)
+        ws_process.cell(row=row_idx, column=3, value=pt.quantity)
+        ws_process.cell(row=row_idx, column=5, value=pt.description or "")
+        ws_process.cell(row=row_idx, column=4, value=pt.get_status_display())
+        ws_process.cell(row=row_idx, column=6, value=pt.date_updated.strftime("%Y-%m-%d %H:%M"))
+
+    # Auto-ajustar
+    for col in ws_process.columns:
+        max_length = max((len(str(cell.value)) for cell in col if cell.value), default=10)
+        ws_process.column_dimensions[get_column_letter(col[0].column)].width = min(max_length + 2, 50)
+    # Título
+    ws_process.insert_rows(1)
+    title_cell = ws_process['A1']
+    title_cell.value = f"Lab Inventory Report - {lab.name} ({lab.campus.name})"
+    title_cell.font = Font(bold=True, size=14)
+    ws_process.merge_cells('A1:F1')
 
 
     # ====================== OTHER ITEMS SHEET ======================

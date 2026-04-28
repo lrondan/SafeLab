@@ -28,6 +28,8 @@ def dashboard(request):
     labs_done = LabSession.objects.filter(practice_complete = True).count()
     return render(request, 'core/dash.html', {
         'stats': {
+            'total': labs_total,
+            'total_reports' : report_count,
             'practicals': LabSession.objects.filter(practice_complete = False).count(),
             'solved_rep':  (report_solved * 100 // report_count) if report_count else 0,
             'labs'      :  (labs_done * 100 // labs_total) if labs_total else 0,

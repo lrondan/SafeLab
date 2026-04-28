@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
-from . base import * 
+from .base import * 
 import os
 
 load_dotenv()  # Load environment variables from .env file
@@ -29,9 +29,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'True'
+DEBUG = os.getenv('DEBUG') == False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["192.168.14.15",
+                "localhost",
+                "127.0.0.1",
+                "iot.vanguard.sr",
+                "www.iot.vanguard.sr"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://192.168.14.15",
+    "http://iot.vanguard.sr",
+]
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = None
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -177,8 +193,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 #Extra security
 SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True   
+   
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True

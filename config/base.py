@@ -53,8 +53,8 @@ JAZZMIN_SETTINGS = {
         "inventory.Laboratory": "fas fa-flag",
         "inventory.Reagent": "fas fa-droplet",
         "inventory.SafeMaterial": "fas fa-shield-alt",
-        "inventory.OtherItem": "fas fa-box-open",
         "inventory.ProcessTrainer": "fas fa-cogs",
+        "inventory.OtherItem": "fas fa-box-open",
 
         "gallery.VideoMaterial": "fas fa-video",
 

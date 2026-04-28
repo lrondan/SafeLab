@@ -1,0 +1,14 @@
+# postgresql utils
+
+python manage.py dbshell  -----> to open the dbshell
+#importan scripts
+psql
+\?
+\c
+\l
+\t
+\q
+
+#ALTER SEQUENCE ( IMPORTANT TO START FROM 1 )
+
+ALTER SEQUENCE name_of_the_app_name_of_the_model_id_seq RESTART WITH 1;
